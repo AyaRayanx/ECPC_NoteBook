@@ -25,4 +25,7 @@ ans[x2][y2]++;
 <<<<<-------------------------------------------------------------------------------------------------------->>>>>
 
 template<typename T>
-using min_pq = priority_queue<T, vector<T>, greater<T>>
+using min_pq = priority_queue<T, vector<T>, greater<T>>;
+
+min_pq<int> pq;
+
