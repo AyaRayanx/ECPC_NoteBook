@@ -1,0 +1,24 @@
+const int N = 1e6 + 1;
+int divCount[N];
+int startIdx[N];
+vector<int> divi;
+
+void buildDivisors() {
+    for (int i = 1; i < N; i++)
+        for (int j = i; j < N; j += i)
+            divCount[j]++;
+
+    startIdx[0] = 0;
+    for (int i = 1; i < N; i++)
+        startIdx[i] = startIdx[i - 1] + divCount[i - 1];
+
+    int total = startIdx[N - 1] + divCount[N - 1];
+    divi.resize(total);
+
+    vector<int> pos(startIdx, startIdx + N);
+    for (int i = 1; i < N; i++)
+        for (int j = i; j < N; j += i)
+            divi[pos[j]++] = i;
+}
+buildDivisors();
+
