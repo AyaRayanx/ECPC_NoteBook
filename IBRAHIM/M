@@ -1,3 +1,4 @@
+// get divisors in o(n*log(n))
 const int N = 1e6 + 1;
 int divCount[N];
 int startIdx[N];
