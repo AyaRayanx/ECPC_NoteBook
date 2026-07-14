@@ -23,3 +23,14 @@ void buildDivisors() {
 }
 buildDivisors();
 
+
+const int N = 1e6 + 1;
+vector<vector<int> > divi(N);
+
+void divisors() {
+    for (int i = 2; i < N; i++) {
+        for (int j = i; j < N; j += i) {
+            divi[j].push_back(i);
+        }
+    }
+}
