@@ -63,6 +63,60 @@ return splitmix64(x + FIXED_RANDOM);
 
 unordered_map<int, pair<int,int>> mp;
 
+
+-----------------------------------------------
+#include <ext/pb_ds/assoc_container.hpp>
+#include <ext/pb_ds/tree_policy.hpp>
+
+using namespace std;
+using namespace __gnu_pbds;
+
+/* ================= ORDERED SET ================= */
+// no duplicates
+template<typename T>
+using ordered_set = tree<
+       T,
+       null_type,
+       less<T>,
+       rb_tree_tag,
+       tree_order_statistics_node_update
+>;
+
+/* ================= ORDERED MULTISET ================= */
+// allow duplicates using (value, unique_id)
+template<typename T>
+using ordered_multiset = tree<
+       pair<T,int>,
+       null_type,
+       less<pair<T,int>>,
+       rb_tree_tag,
+       tree_order_statistics_node_update
+>;
+
+int uid = 0;
+
+/* ---------- ordered multiset helpers ---------- */
+void oms_insert(ordered_multiset<int>& s, int x) {
+   s.insert({x, uid++});
+}
+
+void oms_erase_one(ordered_multiset<int>& s, int x) {
+   auto it = s.lower_bound({x, -1});
+   if (it != s.end() && it->first == x)
+       s.erase(it);
+}
+
+int oms_count_less(ordered_multiset<int>& s, int x) {
+   return s.order_of_key({x, -1});
+}
+
+int oms_count_less_equal(ordered_multiset<int>& s, int x) {
+   return s.order_of_key({x, INT_MAX});
+}
+
+int oms_kth(ordered_multiset<int>& s, int k) {
+   return s.find_by_order(k)->first;
+-------------------------------------------
 signed main()
 {
     adee_ya_am_methoooo
