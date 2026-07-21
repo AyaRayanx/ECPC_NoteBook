@@ -34,6 +34,10 @@ ll setBit(ll n, int id) {
     return n | (1LL << id);
 }
 
+int flibbit (int nm, int idx) {
+        return nm ^ (1ll << idx);
+    }
+
 // set bit to 0
 ll clearBit(ll n, int id) {
     return n & ~(1LL << id);
@@ -46,13 +50,17 @@ ll toggleBit(ll n, int id) {
 
 // get bit
 int getBit(ll n, int id) {
-    return (n >> id) & 1;
+    return (n >> id) & 1LL;
 }
 
 // check power of 2
 bool isPowerOfTwo(ll n) {
     return n && !(n & (n - 1));
 }
+
+ int lastbitval (int nm) {
+        return nm & ~(nm-1ll);
+    }
 
 // lowest set bit (LSB)
 ll lowestBit(ll n) {
