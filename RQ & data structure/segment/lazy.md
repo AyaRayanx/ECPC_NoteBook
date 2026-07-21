@@ -91,7 +91,7 @@ struct SegTree
         update(l, r, val, 2 * ni + 2, mid, rx);
         segdata[ni] = marge(segdata[2 * ni + 1], segdata[2 * ni + 2]);
     }
-    void updata(int l, int r, int val)
+    void update(int l, int r, int val)
     {
         update(l, r, val, 0, 0, tree_size);
     }
