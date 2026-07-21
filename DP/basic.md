@@ -15,6 +15,41 @@ LIS
     }
     cout << (int)tails.size();
 <<<<<-------------------------------------------------------------------------------------------------------->>>>>
+//o(n^2)
+int LIS(vector<int>& a) {
+    int n = a.size();
+    vector<int> dp(n, 1);
+
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < i; j++) {
+            if (a[j] < a[i])
+                dp[i] = max(dp[i], dp[j] + 1);
+        }
+    }
+
+    return *max_element(dp.begin(), dp.end());
+}
+
+
+
+
+
+int LCS(string &a, string &b) {
+    int n = a.size(), m = b.size();
+    vector<vector<int>> dp(n+1, vector<int>(m+1, 0));
+
+    for (int i = 1; i <= n; i++) {
+        for (int j = 1; j <= m; j++) {
+            if (a[i-1] == b[j-1])
+                dp[i][j] = dp[i-1][j-1] + 1;
+            else
+                dp[i][j] = max(dp[i-1][j], dp[i][j-1]);
+        }
+    }
+
+    return dp[n][m];
+}
+<<<<<-------------------------------------------------------------------------------------------------------->>>>>
 
 dp iterative 
 
@@ -46,6 +81,32 @@ void solve()
         }
     }
 
+<<<<<-------------------------------------------------------------------------------------------------------->>>>>
+
+// knapsack 
+int knapsack(int n, int W, vector<int>& wt, vector<int>& val) {
+    vector<int> dp(W+1, 0);
+
+    for (int i = 0; i < n; i++) {
+        for (int w = W; w >= wt[i]; w--) {
+            dp[w] = max(dp[w], dp[w - wt[i]] + val[i]);
+        }
+    }
+
+    return dp[W];
+}
+// unbounded 
+int unboundedKnapsack(int n, int W, vector<int>& wt, vector<int>& val) {
+    vector<int> dp(W+1, 0);
+
+    for (int i = 0; i < n; i++) {
+        for (int w = wt[i]; w <= W; w++) {
+            dp[w] = max(dp[w], dp[w - wt[i]] + val[i]);
+        }
+    }
+
+    return dp[W];
+}
 <<<<<-------------------------------------------------------------------------------------------------------->>>>>
 
 dp digit ootimize tight
@@ -100,6 +161,55 @@ signed main()
     test
     solve();
     return 0;
+}
+<<<<<-------------------------------------------------------------------------------------------------------->>>>>
+// o(n^3)
+for (int m = 0; m < (1 << n); m++)
+for (int s = m; s; s = (s - 1) & m)
+int remaining = m ^ s;
+// dp[m] = min(dp[m], dp[s] + dp[remaining]);
+
+<<<<<-------------------------------------------------------------------------------------------------------->>>>>
+int n;
+vector<vector<int>> cost;
+int dp[1<<15][15];
+
+int solve(int mask, int pos) {
+    if (mask == (1 << n) - 1)
+        return cost[pos][0]; // return to start
+
+    if (dp[mask][pos] != -1)
+        return dp[mask][pos];
+
+    int ans = INT_MAX;
+
+    for (int nxt = 0; nxt < n; nxt++) {
+        if (!(mask & (1 << nxt))) {
+            ans = min(ans,
+                      cost[pos][nxt] +
+                      solve(mask | (1 << nxt), nxt));
+        }
+    }
+
+    return dp[mask][pos] = ans;
+}
+
+//. Subset Sum DP
+bool subsetSum(vector<int>& a, int target) {
+    vector<vector<bool>> dp(a.size()+1, vector<bool>(target+1, false));
+
+    for (int i = 0; i <= a.size(); i++)
+        dp[i][0] = true;
+
+    for (int i = 1; i <= a.size(); i++) {
+        for (int j = 0; j <= target; j++) {
+            dp[i][j] = dp[i-1][j];
+            if (j >= a[i-1])
+                dp[i][j] |= dp[i-1][j - a[i-1]];
+        }
+    }
+
+    return dp[a.size()][target];
 }
 <<<<<-------------------------------------------------------------------------------------------------------->>>>>
 
