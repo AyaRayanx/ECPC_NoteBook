@@ -23,6 +23,9 @@ ans[x1- 1][y2]--;
 ans[x2][y2]++;
 }
 <<<<<-------------------------------------------------------------------------------------------------------->>>>>
+// number of sub-squares that cover the cell (i,j): 
+(min(i,n−k)−max(−1,i−k))⋅(min(j,m−k)−max(−1,j−k))
+
 
 template<typename T>
 using min_pq = priority_queue<T, vector<T>, greater<T>>;
