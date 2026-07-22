@@ -1,0 +1,13 @@
+
+T cross(pt v, pt w) {
+    return (v.x*w.y-v.y*w.x);
+}
+
+//بيجيب مساحة اي بوليجون بس لازم يكون convex او concave مفهوش self intersecting
+T polygonArea(vector<pt> &p) {
+    T area = 0;
+    for (int i = 1; i + 1 < (int)p.size(); i++) {
+        area += cross(p[i]-p[0], p[i+1]-p[0]);
+    }
+    return fabs(area) / 2;
+}
