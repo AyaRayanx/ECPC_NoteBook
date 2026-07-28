@@ -27,6 +27,9 @@ bool rec(int x, int y)
         if (rec(x - 1, y - 2) == 0)
             f = true;
     }
+    ret =f;
+    return f;
+    }
 
     // Grundy 
     int calcGrundy1(int n) {
