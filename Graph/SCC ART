@@ -1,0 +1,42 @@
+```
+vector<vector<int>> adj;
+
+vector<int> disc, low;
+vector<bool> isArt;
+
+int timer = 0;
+
+void dfs(int u, int parent)
+{
+    disc[u] = low[u] = timer++;
+
+    int children = 0;
+
+    for(auto v : adj[u])
+    {
+        if(v == parent)
+            continue;
+
+        if(disc[v] == -1)
+        {
+            children++;
+
+            dfs(v, u);
+
+            low[u] = min(low[u], low[v]);
+
+            // non-root
+            if(parent != -1 && low[v] >= disc[u])
+                isArt[u] = true;
+        }
+        else
+        {
+            low[u] = min(low[u], disc[v]);
+        }
+    }
+
+    // root
+    if(parent == -1 && children > 1)
+        isArt[u] = true;
+}
+```
