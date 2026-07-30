@@ -1,0 +1,53 @@
+```
+vector<vector<int>> adj;
+
+vector<int> disc;
+vector<int> low;
+vector<int> inStack;
+
+stack<int> st;
+
+int timer=0;
+
+void tarjan(int u)
+{
+    disc[u]=low[u]=timer++;
+
+    st.push(u);
+    inStack[u]=1;
+
+    for(auto v:adj[u])
+    {
+        if(disc[v]==-1)
+        {
+            tarjan(v);
+
+            low[u]=min(low[u],low[v]);
+        }
+        else if(inStack[v])
+        {
+            low[u]=min(low[u],disc[v]);
+        }
+    }
+
+    if(low[u]==disc[u])
+    {
+        cout<<"SCC : ";
+
+        while(true)
+        {
+            int node=st.top();
+            st.pop();
+
+            inStack[node]=0;
+
+            cout<<node<<" ";
+
+            if(node==u)
+                break;
+        }
+
+        cout<<"\n";
+    }
+}
+```
