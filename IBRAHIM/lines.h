@@ -6,6 +6,19 @@ struct P {
    void read() {
       cin >> x >> y;
    }
+
+   bool operator==(P const &he) const {
+      return x == he.x && y == he.y;
+   }
+
+   void operator-=(P const &he) {
+      x -= he.x, y -= he.y;
+   }
+
+   void operator+=(P const &he) {
+      x += he.x, y += he.y;
+   }
+
    P operator-(P const &he) const {
       return {x - he.x, y - he.y};
    }
