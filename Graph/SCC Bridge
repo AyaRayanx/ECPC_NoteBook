@@ -1,0 +1,35 @@
+```
+vector<vector<int>> adj;
+
+vector<int> disc;
+vector<int> low;
+
+int timer=0;
+
+void dfs(int u,int parent)
+{
+    disc[u]=low[u]=timer++;
+
+    for(auto v:adj[u])
+    {
+        if(v==parent)
+            continue;
+
+        if(disc[v]==-1)
+        {
+            dfs(v,u);
+
+            low[u]=min(low[u],low[v]);
+
+            if(low[v] > disc[u])
+            {
+                cout<<u<<" "<<v<<" is bridge\n";
+            }
+        }
+        else
+        {
+            low[u]=min(low[u],disc[v]);
+        }
+    }
+}
+```
