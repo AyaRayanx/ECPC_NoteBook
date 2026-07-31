@@ -23,6 +23,31 @@ struct KMP{
         }
     }
 };
+////////////////////////////////////////////////////////
+vector<vector<int>> nxt;
+string a,b;
+int n,m;
+vector<int> pi;
+void kmp(){
+    pi=vector<int>(m+9,0);
+    nxt=vector<vector<int>>(m,vector<int>(30,0));
+    for(int i=1;i<m;i++){
+        int j= pi[i-1];
+        while(j>0 && b[i]!=b[j]) j=pi[j-1];
+        if(b[i]==b[j]) j++;
+        pi[i]=j;
+    }
+    for(int i=0;i<m;i++){
+        for(int c=0;c<26;c++){
+            char ch='a'+c;
+            int j=i;
+            while(j>0 && ch!=b[j]) j=pi[j-1];
+            if(ch==b[j]) j++;
+            nxt[i][c]=j;
+        }
+    }
+
+}
 //////////////////////////////////////////////////
 
 struct Hashing{
